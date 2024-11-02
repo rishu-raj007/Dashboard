@@ -1,0 +1,35 @@
+.container {
+
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        height: 100vh;
+        align-items: space-around;
+
+}
+
+.graph-container {
+   width: 40%;
+   
+        
+}
+.navbar-container{
+    background-color: aqua;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+
+    
+}
+.navbar-brand{
+    margin-left: 0;
+    font-weight: bold;
+    color: grey;
+}
+.navbar-mid{
+    display: flex;
+    width: 30%;
+    justify-content: space-between;
+    margin-left: 200px;
+
+}
