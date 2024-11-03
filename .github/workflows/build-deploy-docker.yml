@@ -43,7 +43,7 @@ jobs:
         docker push ${{ secrets.DOCKER_USERNAME }}/dashboard:latest
 
   
-deploy:
+  deploy:
     runs-on: ubuntu-latest
     needs: build
 
