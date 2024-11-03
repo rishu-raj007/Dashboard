@@ -41,3 +41,28 @@ jobs:
       run: |
         docker tag ${{ secrets.DOCKER_USERNAME }}/dashboard:${{ github.sha }} ${{ secrets.DOCKER_USERNAME }}/dashboard:latest
         docker push ${{ secrets.DOCKER_USERNAME }}/dashboard:latest
+
+  
+deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: SSH into EC2 and deploy Docker container
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          script: |
+            # Pull the latest Docker image from Docker Hub
+            docker pull ${{ secrets.DOCKER_USERNAME }}/dashboard:latest
+
+            # Stop and remove any existing container with the same name
+            docker stop dashboard  true
+
+            # Run the Docker image as a new container
+            docker run -d --name dashboard -p 80:3000 ${{ secrets.DOCKER_USERNAME }}/dashboard:latest
+
+    
